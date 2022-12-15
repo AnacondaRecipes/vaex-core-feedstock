@@ -1,6 +1,6 @@
 {% set name = "vaex-core" %}
-{% set version = "4.9.1" %}
-{% set sha256 = "60562b6244e20111fdb98bab2a3d7c310320abd1a182899bd50c90680f2b2ff6" %}
+{% set version = "4.11.1" %}
+{% set sha256 = "6a5da199e8615a799bd9425f459529218ca4dcae150bbb3a5b2a6dd22c06d482" %}
 
 package:
   name: {{ name|lower }}
@@ -22,16 +22,17 @@ requirements:
   build:
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - cython                                 # [build_platform != target_platform]
     - numpy                                  # [build_platform != target_platform]
     - pybind11                               # [build_platform != target_platform]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
   host:
+    - cython                                 # [build_platform != target_platform]
     - python
     - setuptools
     - numpy
     - pip
+    - wheel
     - pcre
   run:
     - python
@@ -71,5 +72,14 @@ about:
   dev_url: https://www.github.com/vaexio/vaex
 
 extra:
+  skip-lints:
+    - avoid_noarch
+    - missing_pip_check
+
+  anaconda-services:
+    ref:  https://anaconda.zendesk.com/agent/tickets/26940
+    recipe-maintainers:
+      - bkreider
+
   recipe-maintainers:
     - maartenbreddels
